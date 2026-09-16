@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Ashraf Kharoub — DevOps Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #11161A;
+    --surface: #171E23;
+    --surface-2: #1D262C;
+    --line: #2A353C;
+    --text: #E7ECEE;
+    --text-dim: #93A3AB;
+    --text-faint: #5D6C74;
+    --accent: #4FA8D8;
+    --accent-dim: #35566B;
+    --warn: #D8A34F;
+    --radius: 3px;
+    --maxw: 900px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  ::selection{background:var(--accent-dim); color:#fff;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important;}
+  }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(17,22,26,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    height:60px;
+  }
+  .nav-name{font-size:15px; font-weight:600;}
+  .nav-links{display:flex; gap:28px; list-style:none;}
+  .nav-links a{
+    font-size:14px; color:var(--text-dim); text-decoration:none;
+    transition:color .15s ease;
+  }
+  .nav-links a:hover{color:var(--accent);}
+  .nav-links a:focus-visible, a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+
+  /* ---------- Hero ---------- */
+  header.hero{padding:80px 0 64px; border-bottom:1px solid var(--line);}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:center;}
+  .hero-kicker{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--accent);
+    margin-bottom:18px;
+  }
+  .hero h1{font-size:40px; line-height:1.15; margin-bottom:18px;}
+  .hero p.lede{color:var(--text-dim); font-size:17px; max-width:46ch; margin-bottom:28px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:11px 20px; border-radius:var(--radius);
+    font-size:14px; font-weight:500; text-decoration:none;
+    border:1px solid var(--line); transition:border-color .15s ease, background .15s ease;
+  }
+  .btn-primary{background:var(--accent); color:#0B1114; border-color:var(--accent);}
+  .btn-primary:hover{background:#69B9E0;}
+  .btn-ghost{color:var(--text); background:transparent;}
+  .btn-ghost:hover{border-color:var(--text-dim);}
+
+  /* terminal panel */
+  .terminal{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius);
+    overflow:hidden;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:7px;
+    padding:10px 14px; border-bottom:1px solid var(--line); background:var(--surface-2);
+  }
+  .dot{width:9px; height:9px; border-radius:50%; background:#3A464D;}
+  .terminal-label{margin-left:8px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint);}
+  .terminal-body{
+    padding:18px 16px; font-family:'IBM Plex Mono', monospace; font-size:13px;
+    color:#9FDBA0; min-height:220px; line-height:1.75;
+  }
+  .t-line{white-space:pre; opacity:0; animation:reveal .01s forwards;}
+  .t-dim{color:var(--text-faint);}
+  .t-blue{color:var(--accent);}
+  .t-warn{color:var(--warn);}
+  @keyframes reveal{to{opacity:1;}}
+  .cursor{display:inline-block; width:7px; height:14px; background:var(--accent); vertical-align:middle; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---------- Section shell ---------- */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:36px; gap:20px;}
+  .section-head h2{font-size:24px;}
+  .section-num{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--text-faint);}
+
+  /* about */
+  .about-text{max-width:64ch; color:var(--text-dim); font-size:16px;}
+  .about-text p + p{margin-top:16px;}
+  .about-text strong{color:var(--text); font-weight:500;}
+
+  /* services */
+  .service-list{border-top:1px solid var(--line);}
+  .service-row{
+    display:grid; grid-template-columns:200px 1fr; gap:24px;
+    padding:22px 0; border-bottom:1px solid var(--line);
+  }
+  .service-row h3{font-size:17px; color:var(--text);}
+  .service-row p{color:var(--text-dim); font-size:15px; max-width:56ch;}
+
+  /* skills */
+  .skill-groups{display:grid; grid-template-columns:repeat(2, 1fr); gap:28px 40px;}
+  .skill-group h3{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; font-weight:500;
+    color:var(--text-faint); text-transform:none; margin-bottom:10px;
+  }
+  .skill-tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .skill-tags span{
+    font-size:13px; padding:5px 10px; border:1px solid var(--line); border-radius:var(--radius);
+    color:var(--text-dim);
+  }
+
+  /* projects */
+  .project{
+    border:1px solid var(--line); border-radius:var(--radius); padding:26px 26px 24px;
+    margin-bottom:20px; background:var(--surface);
+  }
+  .project:last-child{margin-bottom:0;}
+  .project-top{display:flex; justify-content:space-between; align-items:baseline; gap:16px; margin-bottom:10px; flex-wrap:wrap;}
+  .project h3{font-size:18px;}
+  .project-meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint); white-space:nowrap;}
+  .project p{color:var(--text-dim); font-size:15px; max-width:70ch; margin-bottom:14px;}
+  .project-stack{display:flex; flex-wrap:wrap; gap:8px;}
+  .project-stack span{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent);
+    border:1px solid var(--accent-dim); padding:3px 8px; border-radius:var(--radius);
+  }
+
+  /* cta */
+  .cta{text-align:left;}
+  .cta h2{font-size:28px; max-width:20ch; margin-bottom:14px;}
+  .cta p{color:var(--text-dim); max-width:52ch; margin-bottom:26px;}
+  footer{padding:32px 0 48px;}
+  footer .wrap{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+  }
+  footer .foot-links{display:flex; gap:20px;}
+  footer a{color:var(--text-dim); font-size:13px; text-decoration:none;}
+  footer a:hover{color:var(--accent);}
+  .foot-mono{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint);}
+
+  @media (max-width:800px){
+    .hero-grid{grid-template-columns:1fr;}
+    .skill-groups{grid-template-columns:1fr;}
+    .service-row{grid-template-columns:1fr; gap:8px;}
+    .nav-links{gap:16px;}
+    .hero h1{font-size:32px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-name mono">M. Kharoub</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-kicker">DevOps Engineer &amp; Backend Developer</div>
+      <h1>I build infrastructure that doesn't wake you up at 3&nbsp;AM.</h1>
+      <p class="lede">Containerization, CI/CD pipelines, and cloud infrastructure — built by someone who also writes the backend code running on top of it.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Start a project</a>
+        <a class="btn btn-ghost" href="#work">See the work</a>
+      </div>
+    </div>
+    <div class="terminal" aria-hidden="true">
+      <div class="terminal-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="terminal-label">deploy.log</span>
+      </div>
+      <div class="terminal-body" id="term"></div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+      <span class="section-num mono">01</span>
+    </div>
+    <div class="about-text">
+      <p>I'm a DevOps engineer trained through Egypt's <strong>DEPI DevOps track</strong>, with a backend development background that shapes how I approach infrastructure — I don't just deploy systems, I understand the code running on them.</p>
+      <p>My hands-on work spans <strong>Docker and Kubernetes</strong> containerization, <strong>CI/CD pipeline design</strong> (Jenkins, GitHub Actions, GitLab CI), <strong>cloud platforms</strong> (AWS, Azure, GCP), and <strong>Infrastructure as Code</strong> with Terraform and Ansible.</p>
+      <p>As backend and database lead on <strong>Aegis</strong>, a network security assessment platform, I architected a 36-table database and built the infrastructure supporting real-time vulnerability scanning across company devices. Internships at AITB and GAFI sharpened my ability to deliver production-grade systems under real deadlines.</p>
+      <p>I'm early in my freelance journey, but not in my technical experience — and I bring genuine rigor to every engagement.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Services</h2>
+      <span class="section-num mono">02</span>
+    </div>
+    <div class="service-list">
+      <div class="service-row">
+        <h3>CI/CD Pipeline Setup</h3>
+        <p>Automated build, test, and deployment pipelines using GitHub Actions, GitLab CI, or Jenkins — cutting manual deployment errors and release time.</p>
+      </div>
+      <div class="service-row">
+        <h3>Docker &amp; Kubernetes</h3>
+        <p>Containerize your application and configure Kubernetes orchestration for scalable, portable deployments — from Dockerfile to cluster.</p>
+      </div>
+      <div class="service-row">
+        <h3>Infrastructure as Code</h3>
+        <p>Automate cloud infrastructure provisioning with Terraform or Ansible — version-controlled, repeatable, no more manual server setup.</p>
+      </div>
+      <div class="service-row">
+        <h3>Cloud Infrastructure</h3>
+        <p>Configure and deploy infrastructure on AWS, Azure, or GCP, sized to your application and budget.</p>
+      </div>
+      <div class="service-row">
+        <h3>Backend &amp; API Support</h3>
+        <p>Because I build backend systems myself, I can design or optimize the REST APIs and databases your infrastructure needs to support.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Skills</h2>
+      <span class="section-num mono">03</span>
+    </div>
+    <div class="skill-groups">
+      <div class="skill-group">
+        <h3>devops &amp; infrastructure</h3>
+        <div class="skill-tags">
+          <span>Docker</span><span>Kubernetes</span><span>Jenkins</span><span>GitHub Actions</span>
+          <span>GitLab CI</span><span>Terraform</span><span>Ansible</span><span>AWS</span><span>Azure</span><span>GCP</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>backend development</h3>
+        <div class="skill-tags">
+          <span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>.NET</span><span>REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>databases</h3>
+        <div class="skill-tags">
+          <span>SQL Server</span><span>MongoDB</span><span>MySQL</span><span>SQLite</span><span>Schema Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <h3>languages</h3>
+        <div class="skill-tags">
+          <span>Java</span><span>TypeScript</span><span>C#</span><span>Python</span><span>JavaScript</span><span>C++</span><span>SQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Selected work</h2>
+      <span class="section-num mono">04</span>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>Aegis — Network Security Assessment &amp; Compliance Platform</h3>
+        <span class="project-meta">2026 · Backend &amp; DB Lead, 6-person team</span>
+      </div>
+      <p>Led backend and database architecture for a Windows-based security compliance tool. Designed a scalable 36-table relational database and a fault-tolerant scanning pipeline ensuring individual device failures never disrupted full assessments. Built a CIS Compliance Engine evaluating 3,200+ security controls and a CVE correlation engine linking misconfigurations to known vulnerabilities — exposed through 16 REST APIs.</p>
+      <div class="project-stack">
+        <span>Python</span><span>FastAPI</span><span>React</span><span>TypeScript</span><span>SQLite</span><span>Docker</span><span>Electron</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>AITB — High-Traffic API Optimization</h3>
+        <span class="project-meta">2025 · Node.js Developer Intern</span>
+      </div>
+      <p>Built and optimized RESTful APIs handling 1,000+ requests per day, improving response times by 20%. Redesigned MongoDB schemas to cut query execution time by 15% under production load, maintaining 100% on-time delivery across Agile sprints.</p>
+      <div class="project-stack">
+        <span>Node.js</span><span>Express.js</span><span>MongoDB</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <h3>GAFI — Government IT Infrastructure &amp; Systems</h3>
+        <span class="project-meta">2024 · IT Intern</span>
+      </div>
+      <p>Designed and implemented a SQL database for internal government applications, and built a .NET documentation platform later adopted for staff training. Supported maintenance of live IT infrastructure, ensuring uninterrupted daily operations.</p>
+      <div class="project-stack">
+        <span>SQL Server</span><span>.NET</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="cta">
+  <div class="wrap">
+    <h2>Ready to automate your infrastructure?</h2>
+    <p>Whether it's a CI/CD pipeline, a container setup, or a full infrastructure build — let's talk about your project.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:mohamed.kharoub.dev@gmail.com">Send a message</a>
+      <a class="btn btn-ghost" href="https://linkedin.com/in/mohamed-ashraf-753558357" target="_blank" rel="noopener">View LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="foot-mono">© 2026 Mohamed Ashraf Kharoub · Cairo, Egypt</span>
+    <div class="foot-links">
+      <a href="mailto:mohamed.kharoub.dev@gmail.com">Email</a>
+      <a href="https://linkedin.com/in/mohamed-ashraf-753558357" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const lines = [
+    { text: '$ docker build -t infra/deploy:latest .', cls: '' },
+    { text: 'Building image... done', cls: 't-dim' },
+    { text: '$ kubectl apply -f cluster.yaml', cls: '' },
+    { text: 'deployment.apps/api-service created', cls: 't-dim' },
+    { text: 'service/api-service configured', cls: 't-dim' },
+    { text: '$ ci-cd run --pipeline production', cls: '' },
+    { text: '✓ build   ✓ test   ✓ scan   ✓ deploy', cls: 't-blue' },
+    { text: 'Status: 3/3 replicas healthy', cls: 't-warn' },
+  ];
+  const term = document.getElementById('term');
+  let delay = 0;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion) {
+    term.innerHTML = lines.map(l => `<div class="${l.cls}">${l.text}</div>`).join('');
+  } else {
+    lines.forEach((l, i) => {
+      const div = document.createElement('div');
+      div.className = 't-line ' + l.cls;
+      div.textContent = l.text;
+      div.style.animationDelay = delay + 'ms';
+      div.style.animationName = 'reveal';
+      div.style.animationDuration = '1ms';
+      div.style.animationFillMode = 'forwards';
+      div.style.animationTimingFunction = 'linear';
+      div.style.animationPlayState = 'paused';
+      term.appendChild(div);
+      setTimeout(() => { div.style.opacity = 1; }, delay);
+      delay += 380;
+    });
+    setTimeout(() => {
+      const cur = document.createElement('span');
+      cur.className = 'cursor';
+      term.appendChild(cur);
+    }, delay);
+  }
+</script>
+
+</body>
+</html>
